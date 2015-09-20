@@ -1,0 +1,28 @@
+<% include ../partials/header %>
+  <h2>Add a new country</h2>
+  <form action="/countries" method="POST">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" name="country[name]" id="name" class="form-control" autofocus>
+    </div>
+    <div class="form-group">
+      <label for="flag">Flag:</label>
+      <input type="text" name="country[flag]" id="flag" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="capital">Capital:</label>
+      <input type="text" name="country[capital]" id="capital" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="population">Population</label>
+      <input type="number" name="country[population]" id="population" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="cities">Cities</label>
+      <input type="cities" name="cities" id="cities" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="submit" value="Add" class ="btn btn-success btn-lg">
+    </div>
+  </form>
+<% include ../partials/footer %>
