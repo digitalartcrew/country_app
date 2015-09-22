@@ -23,12 +23,17 @@ app.use(session({
 // use loginMiddleware everywhere!
 app.use(loginMiddleware);
 
-app.get('/', routeMiddleware.ensureLoggedIn, function(req,res){
+app.get('/', function(req,res){
   res.render('users/index');
 });
 
-app.get('/signup', routeMiddleware.preventLoginSignup ,function(req,res){
+app.get('/signup', routeMiddleware.preventLoginSignup, function(req,res){
   res.render('users/signup');
+});
+
+app.get('/logout', function (req, res){
+  req.logout();
+  res.redirect('/');
 });
 
 app.post("/signup", function (req, res) {
@@ -36,7 +41,7 @@ app.post("/signup", function (req, res) {
   db.User.create(newUser, function (err, user) {
     if (user) {
       req.login(user);
-      res.redirect("/countries");
+      res.redirect("/signup");
     } else {
       console.log(err);
       // TODO - handle errors in ejs!
@@ -63,10 +68,6 @@ app.post("/login", function (req, res) {
   });
 });
 
-
-app.get('/', function(req,res){
-  res.redirect('/countries');
-});
 
 // INDEX
 app.get('/countries', routeMiddleware.ensureLoggedIn, function(req,res){
@@ -135,7 +136,7 @@ app.delete('/countries/:id', routeMiddleware.ensureLoggedIn, function(req,res){
 
 // CATCH ALL
 app.get('*', function(req,res){
-  res.render('404');
+  res.render('errors/404');
 });
 
 app.listen(3000, function(){
